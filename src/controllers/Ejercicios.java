@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Ejercicios {
 
@@ -27,9 +28,38 @@ public class Ejercicios {
      * Explicación: Ambas cadenas tienen los mismos caracteres con la misma
      * frecuencia.
      */
-    public static boolean areAnagrams(String str1, String str2) {
-        throw new UnsupportedOperationException("Not implemented yet");
+    public boolean areAnagrams(String str1, String str2) {
 
+        Map<Integer, Character> contChar = new HashMap<>();
+        Map<Integer, Character> contChar2 = new HashMap<>();
+
+        if (str1.equals(str2)){
+            return true;
+        }
+
+        if (str1.length() != str2.length()){
+            return false;
+        }
+
+        for (int i = 0; i < str1.toCharArray().length; i++){
+            contChar.put(i + 1,str1.toCharArray()[i]);
+            contChar2.put(i + 1,str2.toCharArray()[i]);
+        }
+
+        int cont = 0;
+        for (Integer i = 0; i < str1.toCharArray().length; i++){
+            boolean contains = contChar.containsValue(contChar2.get(i + 1));
+
+            if (contains){
+                cont ++;
+            }
+        }
+
+        if (cont == str1.toCharArray().length){
+            return true;
+        }
+
+        return false;
     }
 
     /*
@@ -48,6 +78,32 @@ public class Ejercicios {
      * Output: null
      */
     public int[] sumatoriaDeDos(int[] nums, int objetivo) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        Map<Integer, int[]> resultMap = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++){
+            for (int j = i + 1; j < nums.length; j++){
+                resultMap.put(j, new int[]{i, j});
+            }
+        }
+
+        for (int i = 0; i < nums.length; i++){
+            int[] parSuma = resultMap.get(i + 1);
+            if (parSuma != null){
+                int suma = nums[parSuma[0]] + nums[parSuma[1]];
+                if (suma == objetivo){
+                    return parSuma;
+                }
+            } 
+        }
+
+        return null;
+    }
+
+    public void printMenu(){
+        System.out.println("---- Menu ----");
+        System.out.println("1. Ejercicio 1");
+        System.out.println("2. Ejercicio 2");
+        System.out.println("0. Salir");
+        System.out.println("Escoja una opcion: ");
     }
 }

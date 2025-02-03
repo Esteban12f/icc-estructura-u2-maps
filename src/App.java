@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 import controllers.Ejercicios;
 import controllers.EmpleadoContoller;
 import controllers.Mapa;
@@ -11,10 +13,10 @@ public class App {
         //runMapExamlpe();
 
         // Ejecuta el ejemplo de gestión de empleados usando HashMap
-        runEmpleadoExample();
+        //runEmpleadoExample();
 
         // Ejecuta los ejercicios de sumatoria y anagramas
-        //runEjerccios();
+        runEjerccios();
     }
 
     private static void runEmpleadoExample() {
@@ -37,7 +39,53 @@ public class App {
     }
 
     private static void runEjerccios() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        Scanner leer = new Scanner(System.in);
+        Ejercicios ejercicios = new Ejercicios();
+        ejercicios.printMenu();
+        int opcion = leer.nextInt();
+
+        while (opcion != 0) {
+            switch (opcion) {
+                case 1:
+                    System.out.println("Ingrese un string: ");
+                    leer.nextLine();
+                    String str1 = leer.nextLine();
+                    System.out.println("Ingrese otro string: ");
+                    String str2 = leer.nextLine();
+        
+                    boolean result = ejercicios.areAnagrams(str1, str2);
+                    if (result){
+                        System.out.println("Are anagrams");
+                    } else {
+                        System.out.println("Are not anagrams");
+                    }
+                    break;
+    
+                case 2:
+                    System.out.println("Ingrese el tamaño del areglo: ");
+                    int arrayLenght = leer.nextInt();
+        
+                    int[] nums = new int[arrayLenght];
+        
+                    for (int i = 0; i < arrayLenght; i++){
+                        System.out.println("Ingrese el numero en la posicion " + (i + 1) + ":");
+                        nums[i] = leer.nextInt();
+                    }
+        
+                    System.out.println("Ingrese el objetivo:");
+                    int objetivo = leer.nextInt();
+        
+                    int[] resultArray = ejercicios.sumatoriaDeDos(nums, objetivo);
+                    System.out.println(java.util.Arrays.toString(resultArray));
+                    break;
+
+                default:
+                    System.out.println("Opcion no valida :/");
+                    break;
+            }
+            ejercicios.printMenu();
+            opcion = leer.nextInt();
+        }
 
     }
 }
